@@ -1,17 +1,22 @@
 {% extends TEMPLATE_BASE %}
 
+{% block title %}Sign in · {{ settings.SITE_TITLE }}{% endblock %}
+
 {% block content %}
-<h1>Authentication</h1>
+<section class="auth-page" aria-labelledby="auth-title">
+  <div class="auth-page-heading">
+    <p class="auth-eyebrow">WELCOME BACK</p>
+    <h1 id="auth-title">Sign in to {{settings.SITE_TITLE}}</h1>
+    <p class="auth-description">Choose an account provider to continue securely.</p>
+  </div>
 
-{% if user %}
-<p style="font-size: 1.4em;">
-    You are currently logged in as<br /><b>{{user.user_id}}</b> via <b>{{user.user_type}}</b>.
-</p>
-<p>
-    <a href="{% url "auth@logout" %}">logout</a>
-</p>
-
-{% else %}
-{% include "login_box.html" %}
-{% endif %}
+  {% if user %}
+  <div class="auth-status">
+    <p>You’re signed in as <strong>{{user.user_id}}</strong> via <strong>{{user.user_type}}</strong>.</p>
+    <a class="button" href="{% url "auth@logout" %}">Sign out</a>
+  </div>
+  {% else %}
+  {% include "login_box.html" %}
+  {% endif %}
+</section>
 {% endblock %}
